@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/auth/auth_event.dart';
 import '../../blocs/cart/cart_bloc.dart';
 import '../../blocs/cart/cart_event.dart';
 import '../../blocs/cart/cart_state.dart';
@@ -76,6 +78,10 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             );
           },
+        ),
+        IconButton(
+          icon: const Icon(Icons.logout),
+          onPressed: () => context.read<AuthBloc>().add(AuthSignedOut()),
         ),
       ],
     );
