@@ -21,5 +21,5 @@ class AppStrings {
 
   // ── Currency ─────────────────────────────────────────────────────────────────
   static String priceLabel(String currency, String amount) =>
-      '$currency $amount';
+      '${currency == 'SAR' ? 'INR' : currency} $amount';
 }

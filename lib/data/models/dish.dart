@@ -41,7 +41,7 @@ class Dish extends Equatable {
           const [],
       imageUrl: json['image_url'] as String? ?? '',
       customizationsAvailable:
-          json['customizations_available'] as bool? ?? false,
+          (json['addoncat'] as List<dynamic>?)?.isNotEmpty ?? false,
       isVeg: json['is_veg'] as bool? ?? false,
     );
   }
