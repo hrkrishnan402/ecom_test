@@ -12,6 +12,7 @@ import '../../core/theme/app_theme.dart';
 import '../../data/models/menu_category.dart';
 import '../widgets/cart_badge.dart';
 import '../widgets/menu_item_card.dart';
+import 'checkout_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -69,7 +70,10 @@ class _HomeScreenState extends State<HomeScreen>
           builder: (context, cartState) {
             return CartBadge(
               itemCount: cartState.totalQuantity,
-              onTap: () => _showCartSheet(context, cartState),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const CheckoutScreen()),
+              ),
             );
           },
         ),
@@ -133,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen>
               dish: dish,
               quantity: cartState.quantityOf(dish.id),
               onIncrement: () => context.read<CartBloc>().add(
-                    CartItemAdded(dishId: dish.id, dishName: dish.name),
+                    CartItemAdded(dish: dish),
                   ),
               onDecrement: () => context.read<CartBloc>().add(
                     CartItemRemoved(dishId: dish.id),
@@ -175,52 +179,4 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
 
-  void _showCartSheet(BuildContext context, CartState cartState) {
-    final items = cartState.nonEmptyItems;
-
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (_) => Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppStrings.yourCart,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(fontSize: 18),
-            ),
-            const SizedBox(height: 12),
-            if (items.isEmpty)
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Text(
-                    AppStrings.cartEmpty,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                ),
-              )
-            else
-              ...items.map(
-                (item) => ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(item.dishName),
-                  trailing: Text(
-                    '${AppStrings.quantityPrefix} ${item.quantity}',
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
 }
