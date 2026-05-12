@@ -1,22 +1,23 @@
 import 'package:equatable/equatable.dart';
+import '../../data/models/dish.dart';
 
 /// Represents a single cart entry.
 class CartItem extends Equatable {
-  final int dishId;
-  final String dishName;
+  final Dish dish;
   final int quantity;
 
   const CartItem({
-    required this.dishId,
-    required this.dishName,
+    required this.dish,
     this.quantity = 0,
   });
 
-  CartItem copyWith({int? quantity}) =>
-      CartItem(dishId: dishId, dishName: dishName, quantity: quantity ?? this.quantity);
+  CartItem copyWith({int? quantity}) => CartItem(
+        dish: dish,
+        quantity: quantity ?? this.quantity,
+      );
 
   @override
-  List<Object?> get props => [dishId, dishName, quantity];
+  List<Object?> get props => [dish, quantity];
 }
 
 /// State for the Cart BLoC.
@@ -29,6 +30,12 @@ class CartState extends Equatable {
   /// Total number of items across all dishes.
   int get totalQuantity =>
       items.values.fold(0, (sum, item) => sum + item.quantity);
+
+  /// Total price of all items in the cart.
+  double get totalPrice => items.values.fold(
+      0.0,
+      (sum, item) =>
+          sum + (double.tryParse(item.dish.price) ?? 0.0) * item.quantity);
 
   /// Quantity for a specific dish.
   int quantityOf(int dishId) => items[dishId]?.quantity ?? 0;

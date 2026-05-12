@@ -18,6 +18,12 @@ class AppStrings {
   static const String retry = 'Retry';
   static const String somethingWentWrong = 'Something went wrong';
   static const String noItemsInCategory = 'No items in this category';
+  static const String orderSummary = 'Order Summary';
+  static const String dishes = 'Dishes';
+  static const String items = 'Items';
+  static const String totalAmount = 'Total Amount';
+  static const String placeOrder = 'Place Order';
+  static const String orderPlaced = 'Order successfully placed';
 
   // ── Currency ─────────────────────────────────────────────────────────────────
   static String priceLabel(String currency, String amount) =>
