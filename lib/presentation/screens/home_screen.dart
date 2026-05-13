@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/auth/auth_bloc.dart';
-import '../../blocs/auth/auth_event.dart';
 import '../../blocs/cart/cart_bloc.dart';
 import '../../blocs/cart/cart_event.dart';
 import '../../blocs/cart/cart_state.dart';
@@ -14,6 +12,7 @@ import '../../core/theme/app_theme.dart';
 import '../../data/models/menu_category.dart';
 import '../widgets/cart_badge.dart';
 import '../widgets/menu_item_card.dart';
+import '../widgets/side_drawer.dart';
 import 'checkout_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -43,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(context),
+      drawer: const SideDrawer(),
       body: BlocConsumer<MenuBloc, MenuState>(
         listener: (context, state) {
           if (state is MenuLoaded) {
@@ -66,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen>
 
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return AppBar(
-      leading: const Icon(Icons.menu),
       actions: [
         BlocBuilder<CartBloc, CartState>(
           builder: (context, cartState) {
@@ -78,10 +77,6 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             );
           },
-        ),
-        IconButton(
-          icon: const Icon(Icons.logout),
-          onPressed: () => context.read<AuthBloc>().add(AuthSignedOut()),
         ),
       ],
     );
