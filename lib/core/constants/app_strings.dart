@@ -24,6 +24,8 @@ class AppStrings {
   static const String totalAmount = 'Total Amount';
   static const String placeOrder = 'Place Order';
   static const String orderPlaced = 'Order successfully placed';
+  static const String logOut = 'Log out';
+  static const String firebaseIdPrefix = 'ID : ';
 
   // ── Currency ─────────────────────────────────────────────────────────────────
   static String priceLabel(String currency, String amount) =>

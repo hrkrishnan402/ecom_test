@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AuthRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -55,11 +54,9 @@ class AuthRepository {
 
   Future<UserCredential?> signInWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
-    print('SignInWithGoogle is called');
 
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    print(  'GoogleUser is null? :${googleUser == null}');
     if (googleUser == null) return null;
 
     // Obtain the auth details from the request
